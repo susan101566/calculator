@@ -1,0 +1,17 @@
+<!doctype html>
+<html ng-app>
+  <head>
+    <script src="js/angular.min.js"></script>
+    <script src="js/compute.js"></script>
+    <script src="js/calculator.js"></script>
+    <link rel="stylesheet" href="css/calculator.css">
+  </head>
+  <body ng-controller="calculatorController">
+    <h2>Hello! {{name}}</h2>
+    <input type="text" placeholder="0"><br/>
+    <button ng-repeat="(op, name) in opToName"
+        ng-click="enter(op)" ng-class="'op_' + name">
+      {{op}}
+    </button>
+  </body>
+</html>
