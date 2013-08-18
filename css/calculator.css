@@ -1,11 +1,93 @@
+/* Stylesheet for the calculator. */
 
+/* General style for font. */
+html {
+  font-family: "Open Sans", sans-serif;
+  font-weight: normal;
+  color: #444;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+}
+
+/* The calculator panel. */
 .calculator {
-  width:400px;
-  height:400px;
+  width:500px;
+  height:300px;
   position:relative;
   padding:10px;
   border:solid 1px blue;
 }
+
+/* The input area. */
+.calculator .entry {
+  height: 40px;
+  border: 1px #d9d1d7 solid;
+  width: 224px;
+  padding: 4px;
+  text-align: right;
+  font-size: 21px;
+  margin-bottom: 5px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  box-shadow: none;
+  -webkit-appearance: none;
+}
+
+/* General style for the buttons. */
+.calculator button {
+  width: 60px;
+  height: 50px;
+  /* The table rows has default margins. */
+  margin: -3px;
+  border:1px solid #e8ecef;
+  color: #666;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 14px;
+  background: #fdfdfd;
+}
+
+.calculator button:hover {
+  text-decoration: none;
+  color: #2181cf;
+  background: #f4f8fb;
+}
+
+/* Operator buttons. */
+.calculator button.operator {
+  background: #f6f6f6;
+}
+
+.calculator button.operator:hover {
+  background: #d9e9f3;
+}
+
+.calculator button.delete:hover {
+  background: #fdf3ee;
+}
+
+.calculator button.variable:hover {
+  background: #faffe9;
+}
+
+.calculator button.equal {
+  background: #2181cf;
+  color: #ffffff;
+}
+
+.calculator button.equal:hover {
+  color: #ffffff;
+  background: #37a3eb;
+}
+
+
+
+
+
 
 /** style for droppable content **/
 .droppable { 

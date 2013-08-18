@@ -6,12 +6,6 @@ $(function() {
 
   $(".droppable").droppable({
     tolerance: 'fit',
-    over: function(event, ui) {
-      $('.ui-dragable-dragging').addClass('hoverClass');
-    },
-    out: function(event, ui) {
-           $('.ui-dragable-dragging').removeClass('hoverClass');
-         },
     drop: function( event, ui ) {
             $( ".droppable" ).addClass('dropClass');
             angular.element('.conversion').scope()
@@ -111,27 +105,28 @@ calculatorController = function($scope) {
  * @private
  */
 calculatorController.prototype.populateOperators_ = function() {
-  this.scope_.buttons = [
+  var buttons = [
     ['x', '(', ')', 'DEL'],
     ['7', '8', '9', '+'],
     ['4', '5', '6', '-'],
     ['1', '2', '3', '*'],
     ['0', '.', '=', '/']
   ];
-  this.scope_.opToName = {
-    'DEL': 'del',
-    '(': 'lpar',
-    ')': 'rpar',
-    '.': 'dot',
-    '+': 'plus',
-    '-': 'minus',
-    '*': 'times',
-    '÷': 'divide',
-    '=': 'equal',
-    'x': 'x'
-  };
-  for (var i = 0; i < 10; i++) {
-    this.scope_.opToName[i.toString()] = i.toString();
+
+  this.scope_.buttons = buttons;
+
+  for (var i = 0; i < buttons.length; i++) {
+    for (var j = 0; j < buttons[0].length; j++) {
+      this.scope_.opToName[buttons[i][j]] = 'operator';
+    }
   }
+
+  for (var i = 0; i < 10; i++) {
+    this.scope_.opToName[i.toString()] = 'digit';
+  }
+
+  this.scope_.opToName['='] = 'equal';
+  this.scope_.opToName['x'] += ' variable';
+  this.scope_.opToName['DEL'] += ' delete';
 }
 
