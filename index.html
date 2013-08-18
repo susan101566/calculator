@@ -1,18 +1,20 @@
 <!doctype html>
 <html ng-app>
   <head>
-    <script src="js/angular.min.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
+    <script src="js/angular.min.js"></script>
     <script src="js/compute.js"></script>
     <script src="js/calculator.js"></script>
+    <script src="js/conversion.js"></script>
     <link rel="stylesheet" href="css/calculator.css">
   </head>
   <body ng-controller="calculatorController">
     <h2>Hello!</h2>
     <div class="calculator">
-      <div class="draggable">Drag</div>
-      <input class="entry" type="text" ng-model="curEntry" placeholder="0">
+      <div class="draggable">box</div>
+      <input class="entry" type="text"
+          ng-model="curEntry" placeholder="0" readonly>
       <table>
         <tr ng-repeat="row in buttons">
           <td ng-repeat="col in row">
@@ -22,9 +24,20 @@
           </td>
         </tr>
       </table>
-      <div class="conversion droppable">
-        <div ng-repeat="exp in savedExp">
-          {{exp}}
+      <div class="conversion" ng-show="conversionMode"
+          ng-controller=conversionController>
+        <div class="from">
+          <input ng-model="fromEntry">
+          <span>{{curUnit}}</span>
+        </div>
+        <div class="dropbox droppable">
+          <div class="conversion_mode">
+            {{conversionMode}}
+          </div>
+        </div>
+        <div class="to">
+          <input ng-model="toEntry" readonly placeholder="0">
+          <span>{{toUnit}}</span>
         </div>
       </div>
     </div>

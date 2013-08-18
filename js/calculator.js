@@ -1,7 +1,7 @@
 $(function() {
   $(".draggable").draggable({ 
     containment:".calculator",
-    revert: "invalid"
+    helper: "clone"
   });
 
   $(".droppable").droppable({
@@ -12,9 +12,10 @@ $(function() {
     out: function(event, ui) {
            $('.ui-dragable-dragging').removeClass('hoverClass');
          },
-    /** This is the drop event, when the dragable object is moved on the top of the dropable object area **/
     drop: function( event, ui ) {
             $( ".droppable" ).addClass('dropClass');
+            angular.element('.conversion').scope()
+              .changeEntry(angular.element('.calculator').scope().curEntry);
           }
   });
 });
