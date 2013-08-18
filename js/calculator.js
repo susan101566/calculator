@@ -1,6 +1,6 @@
 $(function() {
   $(".draggable").draggable({ 
-    containment:".calculator",
+    containment:"body",
     helper: "clone"
   });
 

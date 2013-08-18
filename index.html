@@ -14,6 +14,7 @@
   <body>
     <span>Wherever you are</span>
     <div class="calculator" ng-controller="calculatorController">
+      <img src="css/dropbox_logo.png" alt="db logo" class="draggable">
       <input class="entry" type="text"
           ng-model="curEntry" placeholder="0" readonly>
       <table>
@@ -25,7 +26,6 @@
           </td>
         </tr>
       </table>
-      <div class="draggable">box</div>
     </div>
     <div class="conversion" ng-show="conversionMode"
         ng-controller=conversionController>
