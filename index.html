@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="css/calculator.css">
   </head>
   <body ng-controller="calculatorController">
-    <h2>Hello! {{name}}</h2>
-    <input type="text" placeholder="0"><br/>
+    <h2>Hello!</h2>
+    <input type="text" ng-model="curEntry" placeholder="0"><br/>
     <button ng-repeat="(op, name) in opToName"
         ng-click="enter(op)" ng-class="'op_' + name">
       {{op}}

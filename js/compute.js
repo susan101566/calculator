@@ -2,19 +2,65 @@
  * @fileoverview
  *
  * The computing logic behind the calculator.
- * Featuring calculate, which takes in a string and evaluates to a number
+ * Featuring compute, which takes in a string and evaluates to a number
  * in type string.
  */
 
+
+/**
+ * Parses the raw expression into understandable format.
+ * Calls calculate_, then return the result.
+ *
+ * @param {string} expression The expression to evaluate
+ * @return {string} The result.
+ */
+function compute(expression) {
+  var intermResult = calculate_(preProcess_(expression)).toString();
+  var resultNum = parseFloatWithNeg_(intermResult);
+  return isNaN(resultNum) ? 'Error' : resultNum.toString();
+}
+
+function isBound(expression) {
+  var value = parseFloat(expression);
+  return !isNaN(value) && isFinite(value);
+}
+
+function isOperator(expression) {
+  return expression == '+' || expression == '-' ||
+    expression == '*' || expression == '/';
+}
+
+var sig = 20;
+
+function preProcess_(expression) {
+  var result = [];
+  for (var i = 0; i < expression.length; i++) {
+    var previous = i == 0 ? undefined : expression[i-1];
+    // Try to interpret negative signs from minus.
+    if (expression[i] == '-' && previous != ')' &&
+        isNaN(parseFloat(previous))) {
+      result.push('~');
+      continue;
+    }
+    // Try to interpret hidden multiply.
+    if (expression[i] == '(' &&
+        (isBound(previous) || previous == ')')) {
+      result.push('*');
+    }
+    result.push(expression[i]);
+  }
+  return result.join('');
+}
 
 
 /**
  * Evaluate a mathematical expression.
  *
  * @param {string} exp The expression to be evaluated.
- * @return {string} The number the expression evaluates to.
+ * @return {string|NaN} The number the expression evaluates to.
+ * @private
  */
-function calculate(exp) {
+function calculate_(exp) {
   var result;
   var startLeftParen = exp.indexOf('(');
   var curExp = exp;
@@ -24,7 +70,7 @@ function calculate(exp) {
       return NaN;
     }
     curExp = curExp.substring(0, startLeftParen) +
-      calculate(curExp.substring(startLeftParen + 1, endRightParen)) +
+      calculate_(curExp.substring(startLeftParen + 1, endRightParen)) +
       curExp.substring(endRightParen + 1, curExp.length);
     startLeftParen = curExp.indexOf('(');
   }
@@ -85,7 +131,7 @@ function evaluateSimple_(exp) {
  * Takes a string and returns a float.
  *
  * @param {string} exp The string to parse the float.
- * @return {number} The parsed number.
+ * @return {number|NaN} The parsed number.
  * @private
  */
 function parseFloatWithNeg_(exp) {
@@ -105,9 +151,9 @@ function parseFloatWithNeg_(exp) {
  */
 function encodeFloatWithNeg_(number) {
   if (number < 0) {
-    return '~' + Math.abs(number);
+    return '~' + Math.abs(number).toFixed(sig);
   }
-  return number;
+  return number.toFixed(sig).toString();
 }
 
 
