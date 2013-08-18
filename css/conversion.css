@@ -1,0 +1,59 @@
+
+.conversion {
+  position: relative;
+  border: solid 1px gray;
+  width: 300px;
+  height: 200px;
+}
+
+.conversion .conversion_mode {
+  position: absolute;
+  width: 100px;
+  height: 20px;
+  bottom: 0px;
+}
+
+/** style for droppable content **/
+.conversion .droppable { 
+  background-image: url('dropbox_logo_dark.png');
+  background-size: 100px 100px;
+  background-repeat: no-repeat;
+  width: 100px; 
+  height: 120px;
+  position: relative;
+  border:solid 3px gray;
+  margin: 0 auto;
+}
+
+.conversion .from,
+.conversion .to {
+  position: absolute;
+  width: 100px;
+  height: 100%;
+  top: 0px;
+  margin: 0 auto;
+}
+
+.conversion .to {
+  right: 0px;
+}
+
+.conversion .from input,
+.conversion .to input {
+  position: absolute;
+  top: 50px;
+  width: 100px;
+  text-align: center;
+  border-style: none;
+  background: transparent;
+  font-size: 20px;
+}
+
+.conversion .unit {
+  position: absolute;
+  top: 80px;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+}
+

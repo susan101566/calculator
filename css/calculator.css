@@ -84,22 +84,8 @@ html {
   background: #37a3eb;
 }
 
-
-
-
-
-
-/** style for droppable content **/
-.droppable { 
-  width: 150px; 
-  height: 100px;
-  float: left; 
-  border:solid 1px gray;
-  margin-left:150px;
-}
-
 /** style for dragable content **/
-.draggable{ 
+.calculator .draggable{ 
   position: absolute;
   left: 250px;
   width: 50px;
@@ -107,42 +93,3 @@ html {
   background: transparent;
 }
 
-/** style when an object is moving hover **/
-.hoverClass{
-  background:#339bfb;
-  color:#ffffff;
-}
-
-/** style for droppable when the moveable object is dropped **/
-.dropClass{
-  background:#55d532;
-}
-
-/** clear the float used by other dragable and moveable objects **/
-.clear{
-  clear:both;
-}
-
-.entry {
-  display: block;
-}
-
-.conversion {
-  background: green;
-  width: 100px;
-  height: 100px;
-}
-
-.op_del {
-  color: red;
-
-
-
-}
-
-.op_plus {
-  color: red;
-
-
-
-}
