@@ -2,16 +2,31 @@
 <html ng-app>
   <head>
     <script src="js/angular.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
     <script src="js/compute.js"></script>
     <script src="js/calculator.js"></script>
     <link rel="stylesheet" href="css/calculator.css">
   </head>
   <body ng-controller="calculatorController">
     <h2>Hello!</h2>
-    <input type="text" ng-model="curEntry" placeholder="0"><br/>
-    <button ng-repeat="(op, name) in opToName"
-        ng-click="enter(op)" ng-class="'op_' + name">
-      {{op}}
-    </button>
-  </body>
+    <div class="calculator">
+      <div class="draggable">Drag</div>
+      <input class="entry" type="text" ng-model="curEntry" placeholder="0">
+      <table>
+        <tr ng-repeat="row in buttons">
+          <td ng-repeat="col in row">
+            <button ng-click="enter(col)" ng-class="'op_' + opToName[col]">
+              {{col}}
+            </button>
+          </td>
+        </tr>
+      </table>
+      <div class="conversion droppable">
+        <div ng-repeat="exp in savedExp">
+          {{exp}}
+        </div>
+      </div>
+    </div>
+ </body>
 </html>

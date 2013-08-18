@@ -30,6 +30,45 @@ function isOperator(expression) {
     expression == '*' || expression == '/';
 }
 
+function hasValidPrefix(prefix, op) {
+  var previous = prefix.charAt(prefix.length - 1);
+  // If op is a digit.
+  if (isBound(op)) {
+    return previous != ')';
+  }
+
+  var invalidPrevious = isOperator(previous) ||
+    previous == '(' || previous == '.';
+
+  // If op is an operator.
+  if (isOperator(op)) {
+    return !invalidPrevious ||
+      (op == '-' && (prefix.length == 0 || previous == '('));
+  }
+
+  switch (op) {
+    case '.':
+      return previous != op && previous != ')';
+    case '(':
+      return previous != '.';
+    case ')':
+      if (invalidPrevious) {
+        return false;
+      }
+      var numLpar = 0, numRpar = 0;
+      for (var i = 0; i < prefix.length; i++) {
+        if (prefix.charAt(i) == '(') {
+          numLpar += 1;
+        } else if (prefix.charAt(i) == ')') {
+          numRpar += 1;
+        }
+      }
+      return numLpar > numRpar;
+    default:
+      return true;
+  }
+}
+
 var sig = 20;
 
 function preProcess_(expression) {
