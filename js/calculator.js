@@ -1,3 +1,6 @@
+/**
+ * The listener for the drag event.
+ */
 $(function() {
   $(".draggable").draggable({ 
     containment:"body",
@@ -15,6 +18,9 @@ $(function() {
 });
 
 
+/**
+ * The Angular controller for calculator.
+ */
 calculatorController = function($scope) {
   this.scope_ = $scope;
 

@@ -1,12 +1,13 @@
 
 .conversion {
-  position: relative;
-  border: solid 1px gray;
+  position: absolute;
   width: 300px;
-  height: 200px;
+  height: 125px;
+  left: 300px;
+  bottom: 0px;
 }
 
-.conversion .conversion_mode {
+.conversion .conversion-mode {
   position: absolute;
   width: 100px;
   height: 20px;
@@ -21,7 +22,6 @@
   width: 100px; 
   height: 120px;
   position: relative;
-  border:solid 3px gray;
   margin: 0 auto;
 }
 

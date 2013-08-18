@@ -1,7 +1,7 @@
 /* Stylesheet for the calculator. */
 
 /* General style for font. */
-html {
+body {
   font-family: "Open Sans", sans-serif;
   font-weight: normal;
   color: #444;
@@ -10,13 +10,20 @@ html {
   border: 0px;
 }
 
+.main-widget {
+  position: relative;
+  width: 600px;
+  height: 300px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
 /* The calculator panel. */
 .calculator {
-  width:500px;
-  height:300px;
-  position:relative;
-  padding:10px;
-  border:solid 1px blue;
+  width: 240px;
+  height: 300px;
+  position: relative;
+  padding: 0px;
 }
 
 /* The input area. */
