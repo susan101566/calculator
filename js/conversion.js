@@ -26,7 +26,10 @@ conversionController = function($scope) {
    * @param{string} n The number dropped.
    */
   $scope.changeEntry = function(n) {
-    $scope.fromEntry = n;
+    $scope.fromEntry = compute(n);
+    if ($scope.fromEntry.length > $('.from input').attr('maxlength')) {
+      $scope.fromEntry = 'Overflow';
+    }
     $scope.$apply();
   };
 
@@ -38,6 +41,9 @@ conversionController = function($scope) {
     if ($scope.fromEntry.length > 0) {
       $scope.toEntry = self.convert($scope.conversionMode,
           $scope.curUnit.name, $scope.toUnit, $scope.fromEntry);
+      if ($scope.toEntry.length > $('.to input').attr('maxlength')) {
+        $scope.toEntry = 'Overflow';
+      }
     }
   };
 
@@ -109,7 +115,7 @@ conversionController.prototype.populateUnits = function() {
 conversionController.prototype.convert =
     function(mode, fromUnit, toUnit, entry) {
   if (fromUnit == toUnit) {
-    return entry.toString();
+    return compute(entry.toString());
   }
   var result = parseFloat(entry);
   var equation = conversionDictionary[mode][fromUnit][toUnit];

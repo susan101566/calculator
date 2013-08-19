@@ -2,15 +2,21 @@
  * The listener for the drag event.
  */
 $(function() {
-  $(".draggable").draggable({ 
-    containment:"body",
-    helper: "clone"
+  $('.draggable').draggable({ 
+    containment:'body',
+    helper: 'clone',
+    start: function() {
+            $('.droppable').addClass('receptive');
+           },
+    stop: function() {
+            $('.droppable').removeClass('receptive');
+          }
   });
 
-  $(".droppable").droppable({
+  $('.droppable').droppable({
     tolerance: 'fit',
     drop: function( event, ui ) {
-            $(".droppable").addClass('dropClass');
+            $('.droppable').addClass('dropClass');
             angular.element('.conversion').scope()
               .changeEntry(angular.element('.calculator').scope().curEntry);
           }
@@ -42,16 +48,10 @@ calculatorController = function($scope) {
    */
   $scope.done = false;
 
-  /**
-   * A list of saved expressions in terms of x.
-   * @expose
-   */
-  $scope.savedExp = [];
-
   this.populateOperators_();
 
   $scope.enter = function(op) {
-    switch (op) {
+   switch (op) {
       case 'DEL':
         // If an expression has just been calculated, clear input.
         if ($scope.done) {
@@ -64,18 +64,16 @@ calculatorController = function($scope) {
         }
         break;
      case '=':
-        if ($scope.curEntry.indexOf('x') != -1) {
-          $scope.savedExp.push($scope.curEntry);
-          $scope.curEntry = '';
-          break;
-        }
         // Evaluate expression.
-        if (!$scope.done && $scope.curEntry.length > 0) {
-            $scope.curEntry = compute($scope.curEntry);
+        if (!$scope.done) {
+          $scope.curEntry = compute($scope.curEntry);
         }
         $scope.done = true;
         break;
      default:
+        if ($('.entry').attr('maxlength') == $scope.curEntry.length) {
+          return;
+        }
         if ($scope.done) {
           $scope.done = false;
           // If the current entry is a number, then replace input.
@@ -112,7 +110,7 @@ calculatorController = function($scope) {
  */
 calculatorController.prototype.populateOperators_ = function() {
   var buttons = [
-    ['x', '(', ')', 'DEL'],
+    ['(', ')', 'db', 'DEL'],
     ['7', '8', '9', '+'],
     ['4', '5', '6', '-'],
     ['1', '2', '3', '*'],
@@ -132,7 +130,7 @@ calculatorController.prototype.populateOperators_ = function() {
   }
 
   this.scope_.opToName['='] = 'equal';
-  this.scope_.opToName['x'] += ' variable';
   this.scope_.opToName['DEL'] += ' delete';
+  this.scope_.opToName['db'] += ' dropbox';
 }
 

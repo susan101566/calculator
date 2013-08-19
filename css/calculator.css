@@ -12,7 +12,7 @@ body {
 
 .main-widget {
   position: relative;
-  width: 600px;
+  width: 700px;
   height: 300px;
   margin: 0 auto;
   margin-top: 50px;
@@ -77,14 +77,8 @@ body {
   background: #fdf3ee;
 }
 
-.calculator button.variable {
-  font-family: 'Times New Roman';
-  font-style: italic;
-  font-size: 20px;
-}
-
-.calculator button.variable:hover {
-  background: #faffe9;
+.calculator button.dropbox {
+  visibility: hidden;
 }
 
 .calculator button.equal {
@@ -100,9 +94,16 @@ body {
 /** style for dragable content **/
 .calculator .draggable{ 
   position: absolute;
-  left: 250px;
-  width: 50px;
-  height: 50px;
+  left: 125px;
+  top: 60px;
+  width: 40px;
+  height: 40px;
+  background-image: url('dropbox_logo.png');
   background: transparent;
+  z-index: 10;
+}
+
+.calculator .draggable:hover {
+  cursor: move;
 }
 

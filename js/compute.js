@@ -12,16 +12,24 @@
  * Calls eval, then return the result.
  *
  * @param {string} expression The expression to evaluate
- * @return {string} The result.
+ * @return {string} The result, or 'Error' if NaN is returned
+ *     or invalid expression.
  */
 function compute(expression) {
+  // No input has been entered yet, return 0.
+  if (expression.length == 0) {
+    return '0';
+  }
   if (isValidInput_(expression)) {
     try {
-      return eval(preprocess_(expression)).toString();
+      var result = eval(preprocess_(expression));
+      if (!isNaN(result)) {
+        return result.toString();
+      }
     } catch (err) {
     }
   }
- return '0';
+ return 'Error';
 }
 
 
@@ -145,8 +153,7 @@ function hasValidPrefix(prefix, op) {
       }
       return numLpar > numRpar;
     default:
-      // E.g. adding x.
-      return true;
+      return false;
   }
 }
 
