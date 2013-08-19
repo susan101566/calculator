@@ -61,7 +61,9 @@ small widget like a calculator.
 
 Currently, if the user enters in a number with too many digits for
 convert, an ‘Overflow’ is displayed. I can probably optimise this a little
-with toFixed, or truncate. But I was out of time.
+with toFixed, or truncate. But I was out of time. Similarly, I should also
+validate input before evaluating. For example, negative 'kg' doesn't make
+sense. But that involves more hardcoding at this stage.
 
 The watch methods can be expensive, but I think for a simple calculator like
 this, the cleaner code that this method brings outweigh the cons.
