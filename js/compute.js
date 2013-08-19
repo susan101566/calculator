@@ -1,6 +1,4 @@
 /**
- * @fileoverview
- *
  * The computing logic behind the calculator.
  * Featuring compute, which takes in a string and evaluates to a number
  * in type string.
@@ -156,6 +154,7 @@ function hasValidPrefix(prefix, op) {
       return false;
   }
 }
+
 
 /**
  * Increase the tolerance for invalid expressions.

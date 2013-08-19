@@ -15,7 +15,7 @@ $(function() {
 
   $('.droppable').droppable({
     tolerance: 'fit',
-    drop: function( event, ui ) {
+    drop: function(event, ui) {
             $('.droppable').addClass('dropClass');
             angular.element('.conversion').scope()
               .changeEntry(angular.element('.calculator').scope().curEntry);
@@ -48,8 +48,14 @@ calculatorController = function($scope) {
    */
   $scope.done = false;
 
+  // Load all the operators.
   this.populateOperators_();
 
+  /**
+   * The main evaluate function.
+   *
+   * @param {string} op The symbol just entered.
+   */
   $scope.enter = function(op) {
    switch (op) {
       case 'DEL':
@@ -71,6 +77,7 @@ calculatorController = function($scope) {
         $scope.done = true;
         break;
      default:
+        // Do not add any more symbols if max length has been reached.
         if ($('.entry').attr('maxlength') == $scope.curEntry.length) {
           return;
         }
@@ -109,6 +116,7 @@ calculatorController = function($scope) {
  * @private
  */
 calculatorController.prototype.populateOperators_ = function() {
+  // The buttons.
   var buttons = [
     ['(', ')', 'db', 'DEL'],
     ['7', '8', '9', '+'],
@@ -119,6 +127,7 @@ calculatorController.prototype.populateOperators_ = function() {
 
   this.scope_.buttons = buttons;
 
+  // Populate the class names of the buttons.
   for (var i = 0; i < buttons.length; i++) {
     for (var j = 0; j < buttons[0].length; j++) {
       this.scope_.opToName[buttons[i][j]] = 'operator';

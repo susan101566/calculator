@@ -1,4 +1,4 @@
-/* Stylesheet for the calculator. */
+/* Stylesheet for the calculator and the main widget. */
 
 /* General style for font. */
 body {
@@ -8,6 +8,14 @@ body {
   margin: 0px;
   padding: 0px;
   border: 0px;
+  position: relative;
+}
+
+/* The instructions arrow. */
+.instructions {
+  position: absolute;
+  left: 250px;
+  top: 50px;
 }
 
 .main-widget {
@@ -92,7 +100,7 @@ body {
 }
 
 /** style for dragable content **/
-.calculator .draggable{ 
+.calculator .draggable {
   position: absolute;
   left: 125px;
   top: 60px;
