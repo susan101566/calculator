@@ -10,7 +10,7 @@ $(function() {
   $(".droppable").droppable({
     tolerance: 'fit',
     drop: function( event, ui ) {
-            $( ".droppable" ).addClass('dropClass');
+            $(".droppable").addClass('dropClass');
             angular.element('.conversion').scope()
               .changeEntry(angular.element('.calculator').scope().curEntry);
           }
@@ -71,9 +71,9 @@ calculatorController = function($scope) {
         }
         // Evaluate expression.
         if (!$scope.done && $scope.curEntry.length > 0) {
-          $scope.curEntry = compute($scope.curEntry);
-          $scope.done = true;
+            $scope.curEntry = compute($scope.curEntry);
         }
+        $scope.done = true;
         break;
      default:
         if ($scope.done) {

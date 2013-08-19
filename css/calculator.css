@@ -77,6 +77,12 @@ body {
   background: #fdf3ee;
 }
 
+.calculator button.variable {
+  font-family: 'Times New Roman';
+  font-style: italic;
+  font-size: 20px;
+}
+
 .calculator button.variable:hover {
   background: #faffe9;
 }

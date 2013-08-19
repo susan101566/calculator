@@ -9,27 +9,87 @@
 
 /**
  * Parses the raw expression into understandable format.
- * Calls calculate_, then return the result.
+ * Calls eval, then return the result.
  *
  * @param {string} expression The expression to evaluate
  * @return {string} The result.
  */
 function compute(expression) {
-  var intermResult = calculate_(preProcess_(expression)).toString();
-  var resultNum = parseFloatWithNeg_(intermResult);
-  return isNaN(resultNum) ? 'Error' : resultNum.toString();
+  if (isValidInput_(expression)) {
+    try {
+      return eval(preprocess_(expression)).toString();
+    } catch (err) {
+    }
+  }
+ return '0';
 }
 
+
+/**
+ * Substitute all occurences of 'x' in expression with value
+ * and evaluate the result.
+ *
+ * @param {string} expression The expression that could contain 'x'.
+ * @param {number} value The value to substitute for 'x'.
+ * @return {string} The evaluated result.
+ */
+function computeWithValue(expression, value) {
+  var parsedString = expression.replace('x', '(' + value + ')');
+  return compute(parsedString);
+}
+
+
+/**
+ * Validate input. The built in function, eval(), is dangerous.
+ * Make sure only evaluating on mathematical symbols.
+ *
+ * @param {string} expression The expression to validate.
+ * @return {boolean}
+ * @private
+ */
+function isValidInput_(expression) {
+  for (var i = 0; i < expression.length; i++) {
+    var c = expression.charAt(i);
+    if (!(isBound(c) || isOperator(c) || c == '.' || c == '(' || c == ')')) {
+      return false;
+    }
+  }
+  return true;
+}
+
+
+/**
+ * True if the input can be parsed into a number.
+ *
+ * @param {string} expression The input to parse.
+ * @return {boolean}
+ */
 function isBound(expression) {
   var value = parseFloat(expression);
   return !isNaN(value) && isFinite(value);
 }
 
+
+/**
+ * True if the expression is one of +,-,* or /
+ *
+ * @param {string} expression
+ * @return {boolean}
+ */
 function isOperator(expression) {
   return expression == '+' || expression == '-' ||
     expression == '*' || expression == '/';
 }
 
+
+/**
+ * True if op can be added to prefix to form a valid
+ * prefix to be evaluated. Only perform some trivial tests.
+ *
+ * @param {string} prefix The prefix seen so far, assume to be valid.
+ * @param {string} op The symbol to be added to the prefix.
+ * @return {boolean}
+ */
 function hasValidPrefix(prefix, op) {
   var previous = prefix.charAt(prefix.length - 1);
   // If op is a digit.
@@ -46,15 +106,35 @@ function hasValidPrefix(prefix, op) {
       (op == '-' && (prefix.length == 0 || previous == '('));
   }
 
+  // Other cases. Mainly found by observation.
   switch (op) {
     case '.':
-      return previous != op && previous != ')';
+      // .. and ). is invalid.
+      if (previous == op || previous == ')') {
+        return false;
+      }
+
+      // .12345. is not valid.
+      var lastOccurr = prefix.lastIndexOf('.');
+      if (lastOccurr == -1) {
+        return true;
+      }
+      for (var i = lastOccurr + 1; i < prefix.length; i++) {
+        if (!isBound(prefix.charAt(i))) {
+          return true;
+        }
+      }
+      return false;
+    // .( is not valid.
     case '(':
       return previous != '.';
     case ')':
+      // +) and () are not valid.
       if (invalidPrevious) {
         return false;
       }
+
+      // Mismatch parens.
       var numLpar = 0, numRpar = 0;
       for (var i = 0; i < prefix.length; i++) {
         if (prefix.charAt(i) == '(') {
@@ -65,22 +145,22 @@ function hasValidPrefix(prefix, op) {
       }
       return numLpar > numRpar;
     default:
+      // E.g. adding x.
       return true;
   }
 }
 
-var sig = 20;
-
-function preProcess_(expression) {
+/**
+ * Increase the tolerance for invalid expressions.
+ * Try to add in hidden multiply signs.
+ *
+ * @param {string} expression The expression to be evaluated.
+ * @return {string} The processed expression.
+ */
+function preprocess_(expression) {
   var result = [];
   for (var i = 0; i < expression.length; i++) {
     var previous = i == 0 ? undefined : expression[i-1];
-    // Try to interpret negative signs from minus.
-    if (expression[i] == '-' && previous != ')' &&
-        isNaN(parseFloat(previous))) {
-      result.push('~');
-      continue;
-    }
     // Try to interpret hidden multiply.
     if (expression[i] == '(' &&
         (isBound(previous) || previous == ')')) {
@@ -92,6 +172,7 @@ function preProcess_(expression) {
 }
 
 
+/******************** Deprecated: use eval() ********************/
 /**
  * Evaluate a mathematical expression.
  *

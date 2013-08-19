@@ -17,7 +17,7 @@
       <div class="calculator" ng-controller="calculatorController">
         <img src="css/dropbox_logo.png" alt="db logo" class="draggable">
         <input class="entry" type="text"
-            ng-model="curEntry" placeholder="0" readonly>
+            ng-model="curEntry" placeholder="0" maxlength="16" readonly>
         <table>
           <tr ng-repeat="row in buttons">
             <td ng-repeat="col in row">
@@ -36,12 +36,15 @@
           </div>
         </div>
         <div class="from">
-          <input ng-model="fromEntry">
-          <span class="unit">{{curUnit}}</span>
+          <input ng-model="fromEntry" maxlength="8">
+          <select ng-model="curUnit" class="unit"
+            ng-options="unit.name group by unit.mode for unit in allUnits">
+          </select>
         </div>
        <div class="to">
-          <input ng-model="toEntry" readonly placeholder="0">
-          <span class="unit">{{toUnit}}</span>
+          <input ng-model="toEntry" readonly maxlength="8"  placeholder="0">
+          <select ng-model="toUnit" class="unit"
+            ng-options="unit for unit in toUnits">
         </div>
       </div>
     </div>
