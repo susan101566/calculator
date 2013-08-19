@@ -37,14 +37,18 @@
         </div>
         <div class="from">
           <input ng-model="fromEntry" maxlength="8">
-          <select ng-model="curUnit" class="unit"
-            ng-options="unit.name group by unit.mode for unit in allUnits">
-          </select>
+          <div class="select-wrapper">
+            <select ng-model="curUnit" class="unit"
+              ng-options="unit.name group by unit.mode for unit in allUnits">
+            </select>
+          </div>
         </div>
        <div class="to">
           <input ng-model="toEntry" readonly maxlength="8"  placeholder="0">
-          <select ng-model="toUnit" class="unit"
-            ng-options="unit for unit in toUnits">
+          <div class="select-wrapper">
+            <select ng-model="toUnit" class="unit"
+              ng-options="unit for unit in toUnits">
+          </div>
         </div>
       </div>
     </div>

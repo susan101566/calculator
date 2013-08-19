@@ -13,6 +13,7 @@
   height: 20px;
   bottom: 0px;
   text-align: center;
+  cursor: default;
 }
 
 /** style for droppable content **/
@@ -59,11 +60,36 @@
   border-bottom: 1px #d9d1d7 solid;
 }
 
-.conversion .unit {
+.conversion .select-wrapper {
   position: absolute;
   top: 80px;
   width: 100px;
+  height: 34px;
+  overflow: hidden;
   text-align: center;
   font-size: 16px;
+  background: #f5f9fc;
+}
+
+.conversion .select-wrapper:hover {
+  background: #d5edff;
+}
+
+.conversion .select-wrapper select {
+  background: transparent;
+  width: 120px;
+  font-size: 16px;
+  height: 34px;
+  border: none;
+  padding-left: 10px;
+  -webkit-appearance: none;
+}
+
+.conversion .select-wrapper select:focus {
+  outline: none;
+}
+
+.conversion .select-wrapper select:hover {
+  cursor: pointer;
 }
 
